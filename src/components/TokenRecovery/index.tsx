@@ -12,17 +12,34 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
       ]);
     }
 
-    setTerminal((terminal: any) => [
-      ...terminal,
-      "Token recovery, in progress...",
-    ]);
-
     fetch(
       `https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${code}`,
-      { method: "GET" }
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     )
-      .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        if (response.ok) {
+          setTerminal((terminal: any) => [
+            ...terminal,
+            "Try to retrieve the access_token...",
+          ]);
+        } else {
+          setTerminal((terminal: any) => [
+            ...terminal,
+            response.statusText + " " + response.status,
+          ]);
+        }
+        console.info(response);
+        response.json();
+      })
+      .then((data) => {
+        console.info(data);
+        console.log(data);
+      })
       .catch((err) => {
         setTerminal((terminal: any) => [...terminal, "Error: " + err]);
       });
