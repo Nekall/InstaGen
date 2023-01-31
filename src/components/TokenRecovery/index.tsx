@@ -20,15 +20,16 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     form.append("redirect_uri", "https://instagen.vercel.app/auth/");
     form.append("code", code);
 
-    fetch("https://api.instagram.com/oauth/access_token", {
+    const options = {
       method: "POST",
       headers: {
-        "content-type":
-          "multipart/form-data; boundary=---011000010111000001101001",
-        "Access-Control-Allow-Origin": "*",
+        "content-type": "multipart/form-data",
+        host: "graph.instagram.com",
       },
       body: form,
-    })
+    };
+
+    fetch("https://api.instagram.com/oauth/access_token", options)
       .then((response) => response.json())
       .then((response) => console.log(response))
       .catch((err) => console.error(err));
