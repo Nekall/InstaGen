@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const TokenRecovery = ({ setTerminal, code }: any) => {
   const [clientSecret, setClientSecret] = useState<string>("");
+  const [clientId, setClientId] = useState("");
 
   const getTokenAccess = (e: any) => {
     e.preventDefault();
@@ -12,37 +13,25 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
       ]);
     }
 
-    fetch(
-      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${code}`,
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          setTerminal((terminal: any) => [
-            ...terminal,
-            "Try to retrieve the access_token...",
-          ]);
-        } else {
-          setTerminal((terminal: any) => [
-            ...terminal,
-            response.statusText + " " + response.status,
-          ]);
-        }
-        console.info(response);
-        response.json();
-      })
-      .then((data) => {
-        console.info(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        setTerminal((terminal: any) => [...terminal, "Error: " + err]);
-      });
+    const form = new FormData();
+    form.append("client_id", clientId);
+    form.append("client_secret", clientSecret);
+    form.append("grant_type", "authorization_code");
+    form.append("redirect_uri", "https://instagen.vercel.app/auth/");
+    form.append("code", code);
+
+    fetch("https://api.instagram.com/oauth/access_token", {
+      method: "POST",
+      headers: {
+        "content-type":
+          "multipart/form-data; boundary=---011000010111000001101001",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: form,
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -52,6 +41,11 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           getTokenAccess(e);
         }}
       >
+        <input
+          onChange={(e) => setClientId(e.target.value)}
+          type="text"
+          placeholder="client_id"
+        />
         <input
           onChange={(e) => setClientSecret(e.target.value)}
           type="text"
