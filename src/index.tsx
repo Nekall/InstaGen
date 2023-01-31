@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import Home from "./Home";
+import Auth from "./pages/Auth";
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,8 +13,8 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<App />} />
-        <Route path="/auth/:token" element={<App />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/:token" element={<Auth />} />
       </Routes>
     </Router>
   </React.StrictMode>
