@@ -15,3 +15,33 @@ body {
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+code{
+  background-color: #373d49;
+  border: white 1px solid;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+}
+
+.steps{
+  text-align: left;
+  height: 50%;
+  width: 100%;
+  border-radius: 12px;
+  border: white 1px solid;
+  overflow: hidden;
+}
+
+details{
+  padding: 10px;
+  background-color: #373d49;
+}
+
+summary{
+  min-width: 350px;
+  cursor: pointer;
+}
