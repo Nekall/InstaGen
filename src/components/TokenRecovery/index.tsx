@@ -49,13 +49,13 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           { method: "GET" }
         )
           .then((response) => response.json())
-          .then((response) => {
-            console.log(response);
+          .then((res) => {
+            console.log(res);
             setTerminal((terminal: any) => [
               ...terminal,
               "",
               "********* access_token long-lived *********",
-              response.access_token,
+              res.access_token,
               "********************************************",
               "",
               "Your long life token generation is complete.",
