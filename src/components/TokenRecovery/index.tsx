@@ -31,7 +31,16 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
 
     fetch("https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token", options)
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) =>{
+        console.log(response);
+        setTerminal((terminal: any) => [
+          ...terminal,
+          "",
+          "************** access_token ****************",
+          response.access_token,
+          "********************************************",
+        ]);
+      })
       .catch((err) => console.error(err));
   };
 
