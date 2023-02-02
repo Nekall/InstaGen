@@ -11,39 +11,23 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     console.log("Shortlivedtk", shortLivedToken);
 
     fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${shortLivedToken}`)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-
-    /*
-    fetch(
-      `https://cors-anywhere.herokuapp.com/https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${shortLivedToken}`,
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        setTerminal((terminal: any) => [
-          ...terminal,
-          "",
-          "********* access_token long-lived *********",
-          response.access_token,
-          "********************************************",
-          "",
-          "Your long life token generation is complete.",
-        ]);
-      })
-      .catch((err) => {
-        console.error(err);
-        setTerminal((terminal: any) => [...terminal, "Error: " + err]);
-      });
-
-      */
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      setTerminal((terminal: any) => [
+        ...terminal,
+        "",
+        "********* access_token long-lived *********",
+        response.access_token,
+        "********************************************",
+        "",
+        "Your long life token generation is complete.",
+      ]);
+    })
+    .catch((err) => {
+      console.error(err);
+      setTerminal((terminal: any) => [...terminal, "Error: " + err]);
+    });
   };
 
   const getShortLivedToken = (e: any) => {
