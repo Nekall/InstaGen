@@ -5,7 +5,36 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
   const [clientSecret, setClientSecret] = useState<string>("");
   const [clientId, setClientId] = useState("");
 
-  const getTokenAccess = (e: any) => {
+  const getLongLivedToken = (shortLivedToken: string) => {
+    fetch(
+      `https://cors-anywhere.herokuapp.com/https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${shortLivedToken}`,
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setTerminal((terminal: any) => [
+          ...terminal,
+          "",
+          "********* access_token long-lived *********",
+          response.access_token,
+          "********************************************",
+          "",
+          "Your long life token generation is complete.",
+        ]);
+      })
+      .catch((err) => {
+        console.error(err);
+        setTerminal((terminal: any) => [...terminal, "Error: " + err]);
+      });
+  };
+
+  const getShortLivedToken = (e: any) => {
     e.preventDefault();
     if (!clientSecret) {
       return setTerminal((terminal: any) => [
@@ -43,33 +72,7 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           response.access_token,
           "********************************************",
         ]);
-
-        fetch(
-          `https://cors-anywhere.herokuapp.com/https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${response.access_token}`,
-          {
-            method: "GET",
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((res) => {
-            console.log(res);
-            setTerminal((terminal: any) => [
-              ...terminal,
-              "",
-              "********* access_token long-lived *********",
-              res.access_token,
-              "********************************************",
-              "",
-              "Your long life token generation is complete.",
-            ]);
-          })
-          .catch((err) => {
-            console.error(err);
-            setTerminal((terminal: any) => [...terminal, "Error: " + err]);
-          });
+        getLongLivedToken(response.access_token);
       })
       .catch((err) => {
         console.error(err);
@@ -81,7 +84,7 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     <div className="form-container">
       <form
         onSubmit={(e) => {
-          getTokenAccess(e);
+          getShortLivedToken(e);
         }}
       >
         <input
