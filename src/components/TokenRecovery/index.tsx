@@ -6,6 +6,25 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
   const [clientId, setClientId] = useState("");
 
   const getLongLivedToken = (shortLivedToken: string) => {
+    console.log("client_id: " + clientId);
+    console.log("client_secret: " + clientSecret);
+    console.log("Shortlivedtk", shortLivedToken);
+
+    fetch(
+      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${shortLivedToken}`
+    )
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    /*
     fetch(
       `https://cors-anywhere.herokuapp.com/https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${shortLivedToken}`,
       {
@@ -32,6 +51,8 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
         console.error(err);
         setTerminal((terminal: any) => [...terminal, "Error: " + err]);
       });
+
+      */
   };
 
   const getShortLivedToken = (e: any) => {
@@ -72,9 +93,6 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           response.access_token,
           "********************************************",
         ]);
-        console.log("client_id: " + clientId);
-        console.log("client_secret: " + clientSecret);
-        console.log("Shortlivedtk", response.access_token);
         getLongLivedToken(response.access_token);
       })
       .catch((err) => {
