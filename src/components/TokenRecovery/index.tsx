@@ -29,19 +29,47 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
       body: form,
     };
 
-    fetch("https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token", options)
+    fetch(
+      "https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token",
+      options
+    )
       .then((response) => response.json())
-      .then((response) =>{
-        console.log(response);
+      .then((response) => {
+        console.info(response);
         setTerminal((terminal: any) => [
           ...terminal,
           "",
-          "************** access_token ****************",
+          "********* access_token short-lived *********",
           response.access_token,
           "********************************************",
         ]);
+
+        fetch(
+          `https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&client_secret=${response.access_token}`,
+          { method: "GET" }
+        )
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            setTerminal((terminal: any) => [
+              ...terminal,
+              "",
+              "********* access_token long-lived *********",
+              response.access_token,
+              "********************************************",
+              "",
+              "Your long life token generation is complete.",
+            ]);
+          })
+          .catch((err) => {
+            console.error(err);
+            setTerminal((terminal: any) => [...terminal, "Error: " + err]);
+          });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setTerminal((terminal: any) => [...terminal, "Error: " + err]);
+      });
   };
 
   return (

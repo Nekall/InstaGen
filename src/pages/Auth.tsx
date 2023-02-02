@@ -12,12 +12,11 @@ const Auth = () => {
   let [searchParams] = useSearchParams();
   const [code] = useState(searchParams.get("code"));
   const [terminal, setTerminal] = useState<any>([
-    "Successful code recovery ✔",
+    "Successful code recovery.",
     "******************* Code *******************",
     `${code}`,
     "********************************************",
   ]);
-  //const [token, setToken] = useState(searchParams.get("token"));
 
   return code ? (
     <div>
