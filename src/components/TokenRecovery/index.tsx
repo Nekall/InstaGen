@@ -10,24 +10,26 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     console.log("client_secret: " + clientSecret);
     console.log("Shortlivedtk", shortLivedToken);
 
-    fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${shortLivedToken}`)
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-      setTerminal((terminal: any) => [
-        ...terminal,
-        "",
-        "********* access_token long-lived *********",
-        response.access_token,
-        "********************************************",
-        "",
-        "Your long life token generation is complete.",
-      ]);
-    })
-    .catch((err) => {
-      console.error(err);
-      setTerminal((terminal: any) => [...terminal, "Error: " + err]);
-    });
+    fetch(
+      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${shortLivedToken}`
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setTerminal((terminal: any) => [
+          ...terminal,
+          "",
+          "********* access_token long-lived *********",
+          response.access_token,
+          "********************************************",
+          "",
+          "Your long life token generation is complete.",
+        ]);
+      })
+      .catch((err) => {
+        console.error(err);
+        setTerminal((terminal: any) => [...terminal, "Error: " + err]);
+      });
   };
 
   const getShortLivedToken = (e: any) => {
@@ -61,6 +63,12 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
       .then((response) => response.json())
       .then((response) => {
         console.info(response);
+        if (response.code && response.code === 400) {
+          return setTerminal((terminal: any) => [
+            ...terminal,
+            `Error: ${response.error_type} - ${response.error_message}`,
+          ]);
+        }
         setTerminal((terminal: any) => [
           ...terminal,
           "",
