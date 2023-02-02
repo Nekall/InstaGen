@@ -1,4 +1,5 @@
 import { useState } from "react";
+import fetch from "isomorphic-fetch";
 
 const TokenRecovery = ({ setTerminal, code }: any) => {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -23,13 +24,12 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     const options = {
       method: "POST",
       headers: {
-        "content-type": "multipart/form-data",
-        host: "graph.instagram.com",
+        "Access-Control-Allow-Origin": "*",
       },
       body: form,
     };
 
-    fetch("https://api.instagram.com/oauth/access_token", options)
+    fetch("https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token", options)
       .then((response) => response.json())
       .then((response) => console.log(response))
       .catch((err) => console.error(err));
