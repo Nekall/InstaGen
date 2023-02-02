@@ -25,8 +25,8 @@ const Home = () => {
     <div>
       <h1>InstaGen</h1>
       <hr />
-      <Terminal terminal={terminal} />
       <LinkBuilder setTerminal={setTerminal} />
+      <Terminal terminal={terminal} />
     </div>
   );
 };

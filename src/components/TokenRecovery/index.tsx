@@ -45,7 +45,7 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
         ]);
 
         fetch(
-          `https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&client_secret=${response.access_token}`,
+          `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${response.access_token}`,
           { method: "GET" }
         )
           .then((response) => response.json())
