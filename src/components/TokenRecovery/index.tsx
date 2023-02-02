@@ -10,19 +10,10 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
     console.log("client_secret: " + clientSecret);
     console.log("Shortlivedtk", shortLivedToken);
 
-    fetch(
-      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${clientSecret}&client_secret=${shortLivedToken}`
-    )
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token%20%20&client_secret=${clientSecret}&access_token=${shortLivedToken}`)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
 
     /*
     fetch(
