@@ -1,5 +1,5 @@
 import { useState } from "react";
-import fetch from "isomorphic-fetch";
+//import fetch from "isomorphic-fetch";
 
 const TokenRecovery = ({ setTerminal, code }: any) => {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -72,10 +72,10 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           response.access_token,
           "********************************************",
         ]);
-        //getLongLivedToken(response.access_token);
         console.log("client_id: " + clientId);
         console.log("client_secret: " + clientSecret);
         console.log("Shortlivedtk", response.access_token);
+        getLongLivedToken(response.access_token);
       })
       .catch((err) => {
         console.error(err);
