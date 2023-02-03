@@ -10,8 +10,8 @@ This is a ReactJS application that allows you to generate a long-lived token for
 ### Prerequisites
 You need to have created an application on https://developers.facebook.com with "Instagram Basic Display" activated and an instagram account connected and the rights given.
 
-You must have added the redirect url (https://instagen.vercel.app/auth/) in "Client OAuth Settings" > "Valid OAuth Redirect URIs.
-Like this:
+You must have added the redirect url (https://instagen.vercel.app/auth/) in "Client OAuth Settings" > "Valid OAuth Redirect URIs.      
+Like this:      
 ![redirect uri](https://raw.githubusercontent.com/Nekall/InstaGen/main/src/assets/image/redirect-uri.png)
 
 ### Steps
