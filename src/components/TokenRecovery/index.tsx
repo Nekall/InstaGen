@@ -24,6 +24,9 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           "********************************************",
           "",
           "Your long life token generation is complete.",
+          "You can now use it in your application.",
+          "Please, don't forget to save it in a safe place.",
+          "Process Over."
         ]);
       })
       .catch((err) => {
@@ -101,7 +104,6 @@ const TokenRecovery = ({ setTerminal, code }: any) => {
           type="text"
           placeholder="client_secret"
         />
-        <br />
         <input type="submit" value="Generate" />
       </form>
     </div>

@@ -6,6 +6,7 @@ import redirectUri from "../assets/image/redirect-uri.png";
 // Components
 import LinkBuilder from "../components/LinkBuilder";
 import Terminal from "../components/Terminal";
+import Header from "../components/Header";
 
 // Styles
 import "../index.css";
@@ -22,9 +23,8 @@ const Home = () => {
   ]);
 
   return (
-    <div>
-      <h1>InstaGen</h1>
-      <hr />
+    <div className="container">
+      <Header />
       <LinkBuilder setTerminal={setTerminal} />
       <Terminal terminal={terminal} />
     </div>

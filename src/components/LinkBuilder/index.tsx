@@ -47,7 +47,6 @@ const LinkBuilder = ({ setTerminal }: any) => {
           type="text"
           placeholder="client_id"
         />
-        <br />
         <input type="submit" value="Generate" />
       </form>
     </div>
