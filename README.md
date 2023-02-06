@@ -1,3 +1,4 @@
+<img src="https://raw.githubusercontent.com/Nekall/InstaGen/main/public/logo192.png" width="50" height="50" />
 # InstaGen
 Redirection site for token generation
 
