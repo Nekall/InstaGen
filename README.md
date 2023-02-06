@@ -1,5 +1,7 @@
 <img src="https://raw.githubusercontent.com/Nekall/InstaGen/main/public/logo192.png" width="50" height="50" />      
+
 # InstaGen      
+
 Redirection site for token generation
 
 This is a ReactJS application that allows you to generate a long-lived token for the Instagram API quickly and securely*.
