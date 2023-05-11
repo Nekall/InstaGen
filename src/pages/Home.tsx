@@ -20,6 +20,9 @@ const Home = () => {
     "",
     <img src={redirectUri} alt="prerequisites" />,
     "",
+    "Check that you have ACTIVATED the demo on cors-anywhere",
+    "https://cors-anywhere.herokuapp.com",
+    "",
   ]);
 
   return (
